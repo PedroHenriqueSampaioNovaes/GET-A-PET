@@ -10,12 +10,25 @@ const useAuth = () => {
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    const token = localStorage.getItem('token');
+    async function autoLogin() {
+      const token = localStorage.getItem('token');
 
-    if (token) {
-      api.defaults.headers.Authorization = `Bearer ${JSON.parse(token)}`;
-      setAuthenticated(true);
+      if (token) {
+        try {
+          await api.get('/users/token/verify', {
+            headers: {
+              Authorization: `Bearer ${JSON.parse(token)}`,
+            },
+          });
+
+          api.defaults.headers.Authorization = `Bearer ${JSON.parse(token)}`;
+          setAuthenticated(true);
+        } catch (error) {
+          window.localStorage.removeItem('token');
+        }
+      }
     }
+    autoLogin();
   }, []);
 
   async function register(user) {

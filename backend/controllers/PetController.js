@@ -86,7 +86,7 @@ module.exports = class PetController {
 
       res.status(200).json({ pets });
     } catch (err) {
-      console.err('Erro ao buscar os pets:', err);
+      console.log('Erro ao buscar os pets:', err);
       res.status(500).json({ message: 'Erro interno do servidor' });
     }
   }
