@@ -11,13 +11,15 @@ const Pets = ({ page, setInfinite }) => {
   React.useEffect(() => {
     const total = 8;
 
-    api.get(`/pets?page=${page}&total=${total}`).then((response) => {
-      setPets(response.data.pets);
+    api
+      .get(`/pets?page=${page}&total=${total}`)
+      .then((response) => {
+        setPets(response.data.pets);
 
-      if (response.data.pets.length < total) {
-        setInfinite(false);
-      }
-    });
+        if (response.data.pets.length < total) {
+          setInfinite(false);
+        }
+      });
   }, [page, setInfinite]);
 
   return (

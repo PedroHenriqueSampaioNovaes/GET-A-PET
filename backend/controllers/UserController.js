@@ -51,7 +51,7 @@ module.exports = class UserController {
       });
     }
 
-    // create a password
+    // create a password hash
     const salt = await bcrypt.genSalt(12);
     const passwordHash = await bcrypt.hash(password, salt);
 
@@ -112,7 +112,7 @@ module.exports = class UserController {
       const token = getToken(req);
       const decoded = jwt.verify(
         token,
-        'sxaskj765CJDAI8OSefnoyoDSbk,mVMcKD532w',
+        'sxaskj765CJDAI8OSefnoyoDSbk,mVMcKD532w'
       );
 
       currentUser = await User.findById(decoded.id);
@@ -209,7 +209,7 @@ module.exports = class UserController {
       await User.findOneAndUpdate(
         { _id: user._id },
         { $set: user },
-        { new: true },
+        { new: true }
       );
 
       res.status(200).json({ message: 'Usuário atualizado com sucesso!' });
