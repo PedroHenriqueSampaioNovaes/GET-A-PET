@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "postinstall": "npm install --prefix client"
+    "postinstall": "npm install --prefix frontend"
   },
   "keywords": [],
   "author": "",
