@@ -1,3 +1,5 @@
+require('dotenv').config();
+const path = require('path')
 const express = require('express');
 const cors = require('cors');
 
@@ -18,5 +20,13 @@ const PetRoutes = require('./routes/PetRoutes');
 
 app.use('/users', UserRoutes);
 app.use('/pets', PetRoutes);
+
+if (process.env.NODE_ENV !== 'development') {
+  app.use(express.static(path.resolve('../frontend/build')));
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve('../frontend/build/index.html'));
+  });
+}
 
 app.listen(5000);
